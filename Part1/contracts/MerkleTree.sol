@@ -22,8 +22,8 @@ contract MerkleTree is Verifier {
         }
         root = hashes[14];
     }
-/*
-    function _insertLeaf(uint256 hashedLeaf) public returns (uint256) {
+
+    function insertLeaf(uint256 hashedLeaf) public returns (uint256) {
         // [assignment] insert a hashed leaf into the Merkle tree
 
         //completely unoptimised since we relcaculate the wole tree each time. 
@@ -44,8 +44,8 @@ contract MerkleTree is Verifier {
         root = hashes[14];
         return root;
     }
-*/
-    function insertLeaf(uint256 hashedLeaf) public returns (uint256) {
+
+    function _insertLeaf(uint256 hashedLeaf) public returns (uint256) {
 
         uint depth=3;//hardset here, can easily be modified for another depth
         uint Lix=0;//ix of 1st leaf at current depth
@@ -99,6 +99,7 @@ contract MerkleTree is Verifier {
         uint256[1] memory input
     ) public view returns (bool) {
         // [assignment] verify an inclusion proof and check that the proof root matches current root
-        return (Verifier.verifyProof(a, b, c, input));
+
+        return (Verifier.verifyProof(a, b, c, input) && root == input[0]);
     }
 }
